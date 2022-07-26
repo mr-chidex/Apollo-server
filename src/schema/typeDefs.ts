@@ -14,6 +14,10 @@ const typeDef = gql`
     getAllUsers: [User!]
     getUser(id: Int!): User
   }
+
+  type Mutation {
+    createUser(name: String!, age: Int!, married: Boolean!): User!
+  }
 `;
 
 export default typeDef;

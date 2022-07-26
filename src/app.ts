@@ -9,7 +9,23 @@ import resolvers from './schema/resolvers';
 const app = express();
 app.use(cors());
 // app.use(morgan('dev'));
-const server = new ApolloServer({ typeDefs, resolvers });
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  formatError: (err) => {
+    if (err.message.startsWith('Database Error: ')) {
+      return new Error('Internal server error');
+    }
+    if (!err.originalError) {
+      return err;
+    }
+
+    const message = err.message || 'An error occurred';
+    const code = err.extensions.exception?.code || 500;
+    return { message, code };
+  },
+});
 
 server.start().then(() => {
   server.applyMiddleware({ app });
