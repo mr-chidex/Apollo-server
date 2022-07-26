@@ -1,4 +1,4 @@
-export default [
+export const Users = [
   {
     id: 1,
     name: 'James',
