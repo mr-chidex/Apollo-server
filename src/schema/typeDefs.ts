@@ -8,6 +8,12 @@ const typeDef = gql`
     married: Boolean!
   }
 
+  input UserInputData {
+    name: String!
+    age: Int!
+    married: Boolean!
+  }
+
   # Queries
   type Query {
     hello: String!
@@ -16,7 +22,7 @@ const typeDef = gql`
   }
 
   type Mutation {
-    createUser(name: String!, age: Int!, married: Boolean!): User!
+    createUser(userInput: UserInputData): User!
   }
 `;
 
