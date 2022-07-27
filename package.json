@@ -9,7 +9,8 @@
     "build": "tsc -p .",
     "build:watch": "tsc --watch",
     "clean": "rm -rf dist",
-    "test": "jest",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
     "lint": "eslint src/**/*.ts",
     "lint:format": "eslint src/**/*.ts --fix",
     "prepare": "husky install"

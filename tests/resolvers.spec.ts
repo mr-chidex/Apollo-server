@@ -28,7 +28,7 @@ describe('Schema resolvers', () => {
     });
 
     describe('Get all users', () => {
-      it('should return all users data', async () => {
+      it('should return a list of users', async () => {
         const response = await request(app)
           .post('/graphql')
           .send({
@@ -44,7 +44,7 @@ describe('Schema resolvers', () => {
       });
     });
 
-    describe('Get a user by id', () => {
+    describe('Get user by id', () => {
       let user: any;
 
       beforeEach(() => {
@@ -59,7 +59,7 @@ describe('Schema resolvers', () => {
         Users.splice(idx, 1);
       });
 
-      it('should return all users data', async () => {
+      it('should return user data with given id', async () => {
         const response = await request(app)
           .post('/graphql')
           .send({
@@ -94,7 +94,7 @@ describe('Schema resolvers', () => {
         expect(response.body.data.getUser).toBeNull();
       });
 
-      it('should return error code and null data if no user is found', async () => {
+      it('should return error code 404 and null data if no user is found', async () => {
         const response = await request(app)
           .post('/graphql')
           .send({
