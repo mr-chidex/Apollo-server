@@ -1,6 +1,6 @@
 import { Users } from '../mocks/db';
 
-interface User {
+interface UserInput {
   name: string;
   age: number;
   married: boolean;
@@ -39,10 +39,11 @@ export default {
     },
   },
   Mutation: {
-    createUser: (_root: any, args: User) => {
-      const { name, married, age } = args;
+    createUser: (_root: any, args: { userInput: UserInput }) => {
+      const { userInput } = args;
+      const { name, married, age } = userInput;
 
-      if (!name || !age || !married) {
+      if (!name || !age) {
         const error: Err = new Error('invalid user data');
         error.code = 422;
         throw error;

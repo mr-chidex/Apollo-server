@@ -2,7 +2,13 @@ import { gql } from 'apollo-server-express';
 
 const typeDef = gql`
   type User {
-    id: Int!
+    id: ID!
+    name: String!
+    age: Int!
+    married: Boolean!
+  }
+
+  input UserInputData {
     name: String!
     age: Int!
     married: Boolean!
@@ -16,7 +22,7 @@ const typeDef = gql`
   }
 
   type Mutation {
-    createUser(name: String!, age: Int!, married: Boolean!): User!
+    createUser(userInput: UserInputData): User!
   }
 `;
 

@@ -8,6 +8,7 @@ import resolvers from './schema/resolvers';
 
 const app = express();
 app.use(cors());
+app.disable('x-powered-by');
 // app.use(morgan('dev'));
 
 const server = new ApolloServer({
