@@ -1,6 +1,10 @@
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
+import {
+  ApolloServerPluginLandingPageProductionDefault,
+  ApolloServerPluginLandingPageLocalDefault,
+} from 'apollo-server-core';
 // import morgan from 'morgan';
 
 import typeDefs from './schema/typeDefs';
@@ -10,6 +14,13 @@ const app = express();
 app.use(cors());
 app.disable('x-powered-by');
 // app.use(morgan('dev'));
+
+let plugins = [];
+if (process.env.NODE_ENV === 'production') {
+  plugins = [ApolloServerPluginLandingPageProductionDefault({ embed: true, graphRef: 'mrchidexApolloServer@prod' })];
+} else {
+  plugins = [ApolloServerPluginLandingPageLocalDefault({ embed: true })];
+}
 
 const server = new ApolloServer({
   typeDefs,
@@ -26,6 +37,9 @@ const server = new ApolloServer({
     const code = err.extensions.exception?.code || 500;
     return { message, code };
   },
+  plugins,
+  cache: 'bounded',
+  csrfPrevention: true,
 });
 
 server.start().then(() => {
